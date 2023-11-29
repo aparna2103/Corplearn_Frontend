@@ -1,0 +1,32 @@
+.employee_card{
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    margin: 1rem 0;
+    border: 1px solid #b5b5b5;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 0px 10px 1px #b5b5b5;
+}
+
+.employee_util_buttons{
+    margin-left: auto;
+}
+
+.employee_delete_button, .employee_edit_button, .employee_edit_ok_button, .employee_edit_cancel_button{
+    margin: 0 0.2rem;
+}
+
+.employee_name, .employee_email{
+    margin: 0;
+}
+
+.employee_name_edit, .employee_email_edit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.employee_name_edit_inp, .employee_email_edit_inp{
+    margin: 0.3rem 0.3rem;
+}
