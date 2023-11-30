@@ -1,3 +1,4 @@
+// Import necessary modules and components from React and other libraries
 import React, { useEffect, useState } from "react";
 import { backendFetchUrl } from "../utils/api";
 import { faPlus, faReply } from "@fortawesome/free-solid-svg-icons";
@@ -7,39 +8,43 @@ import CorpLearnModal from "../ui_utils/modal";
 import Alert from 'react-bootstrap/Alert';
 import CorpLearnClose from '../ui_utils/closebutton';
 
-
+// Define the functional component CorpLearnAllConcerns
 export default function CorpLearnAllConcerns(props){
-    const [concerns, setConcerns] = useState([]);
-    const [concern, setConcern] = useState("");
-    const [validationAlert, setValidationAlert] = useState(false);
-    const [showConcernModal, setShowConcernModal] = useState(false);
-    const [currentConcern, setCurrentConcern] = useState({});
+    // State variables using React's useState hook
+    const [concerns, setConcerns] = useState([]); // Concerns array state
+    const [concern, setConcern] = useState(""); // Single concern state
+    const [validationAlert, setValidationAlert] = useState(false); // Validation alert state
+    const [showConcernModal, setShowConcernModal] = useState(false); // Concern modal display state
+    const [currentConcern, setCurrentConcern] = useState({}); // Current concern state
 
+    // useEffect hook to fetch employee concerns from the backend API when the component mounts
     useEffect(() => {
         backendFetchUrl("/corpLearn/users/employee-concerns/all", {
             method: 'GET',
         }).then(response => response.json())
         .then(data => {
             if(data.code == "token_not_valid"){
-              props.invalidateToken();
+              props.invalidateToken(); // Invalidating token if needed
             }else{
               console.log(data);
-              setConcerns(data);
+              setConcerns(data); // Setting concerns received from the backend API
             }
         });
     }, []);
 
+    // Function to hide the modal and reset state variables
     const onHideModal = () => {
-        setShowConcernModal(!showConcernModal);
-        setValidationAlert(false)
-        setConcern("");
-        setCurrentConcern({});
+        setShowConcernModal(!showConcernModal); // Toggling the display of the concern modal
+        setValidationAlert(false); // Resetting validation alert
+        setConcern(""); // Resetting the single concern state
+        setCurrentConcern({}); // Resetting the current concern state
     }
 
+    // Function to reply to a concern
     const replyConcern = () => {
         console.log(concern);
         if(concern == ""){
-            setValidationAlert(true);
+            setValidationAlert(true); // Setting validation alert if no concern is entered
             return;
         }
         backendFetchUrl("/corpLearn/users/employee-concerns/update/" + currentConcern.id, {
@@ -48,23 +53,24 @@ export default function CorpLearnAllConcerns(props){
         }).then(response => response.json())
         .then(data => {
             if(data.code == "token_not_valid"){
-              props.invalidateToken();
+              props.invalidateToken(); // Invalidating token if needed
             }else{
               console.log(data);
               let newConcerns = concerns.filter(concern => concern.id != currentConcern.id)
               newConcerns = [...newConcerns, data]
-              setConcerns(newConcerns);
-              onHideModal();
+              setConcerns(newConcerns); // Updating concerns with the new reply
+              onHideModal(); // Hiding the modal after replying
             }
         });
     }
 
+    // Function to display the concern modal
     const displayConcernModal = (id, content) => {
-        setCurrentConcern({"id": id, "content": content});
-        setShowConcernModal(!showConcernModal);
+        setCurrentConcern({"id": id, "content": content}); // Setting the current concern
+        setShowConcernModal(!showConcernModal); // Toggling the display of the concern modal
     }
 
-
+    // Rendering JSX components
     return (
         <>
             {validationAlert && 
