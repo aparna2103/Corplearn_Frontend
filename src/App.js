@@ -26,7 +26,7 @@ function App() {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    const token = getCookie('token');
+    const token = getCookie('corplearntoken');
     setIsAuthenticated(!!token);
     if(token){
       setUser(JSON.parse(localStorage.getItem('user')));
@@ -40,7 +40,7 @@ function App() {
   }
 
   const onLogout = () => {
-    deleteCookie('token'); // delete token from cookie
+    deleteCookie('corplearntoken'); // delete token from cookie
     setIsAuthenticated(false);
     setUser({});
     localStorage.removeItem('user')

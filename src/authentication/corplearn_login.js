@@ -30,7 +30,7 @@ function CorpLearnLogin({ login }) {
     .then(data => {
       console.log(data)
       const token = data.access;
-      setCookie('token', token, 10); // set token in cookie
+      setCookie('corplearntoken', token, 10); // set token in cookie
       login(data.user);
     });
 
