@@ -30,3 +30,29 @@
 .employee_name_edit_inp, .employee_email_edit_inp{
     margin: 0.3rem 0.3rem;
 }
+
+.module_content{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.module_edit_modal .modal-dialog{
+    max-width: unset;
+    width: 90% !important;
+    height: 90% !important;
+}
+
+.module_edit_modal .modal-dialog .model-content{
+    height: 100%;
+}
+
+.validationAlert{
+    z-index: 10000;
+    width: 80%;
+    margin: 0 auto;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

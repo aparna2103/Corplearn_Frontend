@@ -14,16 +14,17 @@ function CorpLearnHeader(props) {
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
           {props.isAuthenticated && 
             <Nav>
-              <Nav.Link href="#features">Discussion Forum</Nav.Link>
-              <Nav.Link href="#pricing">Courses</Nav.Link>
-              <Nav.Link href="#deets">Report</Nav.Link>
+              {props.loggedInUser.role == 2 && <Nav.Link href="/corpLearn/home">View Trainings</Nav.Link>}
+              <Nav.Link href="/corpLearn/discussions">Discussion Forum</Nav.Link>
+              {props.loggedInUser.role == 1 && <Nav.Link href="/corpLearn/courses">Courses</Nav.Link>}
+              {props.loggedInUser.role == 2 && <Nav.Link href="/corpLearn/reportConcern">Report</Nav.Link>}
               {props.loggedInUser.role == 1 && <Nav.Link href="/corpLearn/employees">View Employees</Nav.Link>}
-              {props.loggedInUser.role == 1 && <Nav.Link href="#deets">View Concerns</Nav.Link>}
-              {props.loggedInUser.role == 1 && <Nav.Link href="#deets">Post Announcement</Nav.Link>}
+              {props.loggedInUser.role == 1 && <Nav.Link href="/corpLearn/allconcerns">View Concerns</Nav.Link>}
+              <Nav.Link href="/corpLearn/announcements">Announcements</Nav.Link>
               <NavDropdown title={
                   <Image src="../../assets/profile.png" roundedCircle />
               } id="collapsible-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+                <NavDropdown.Item href="/corpLearn/profile">Profile</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={props.logout}>Log out</NavDropdown.Item>
               </NavDropdown>

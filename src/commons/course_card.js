@@ -10,9 +10,9 @@ function CourseCard(props) {
         <Card.Text>
           {props.description}
         </Card.Text>
-        <Button variant="primary">{props.primaryButton}</Button>
+        <Button variant={props.variant || "primary"} onClick={props.onClick}>{props.primaryButton}</Button>
       </Card.Body>
-      <Card.Footer className="text-muted">{props.deadline}</Card.Footer>
+      <Card.Footer className="text-muted">Deadline: {props.deadline}</Card.Footer>
     </Card>
   );
 }
