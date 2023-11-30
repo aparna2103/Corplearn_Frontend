@@ -68,7 +68,7 @@ function App() {
           <Route path="/corpLearn/announcements" element={<CorpLearnAnnouncements loggedInUser={user} invalidateToken={() => onLogout()}/>} />
           <Route path="/corpLearn/profile" element={<CorpLearnEmployeeProfile loggedInUser={user} invalidateToken={() => onLogout()}/>} />
           <Route path="/corpLearn/trackprogress" element={<CorpLearnTrackProgress loggedInUser={user} invalidateToken={() => onLogout()}/>} />
-          <Route path="" element={isAuthenticated ? <CorpLearnHome loggedInUser={user} invalidateToken={() => onLogout()}/> : <Navigate to="/corpLearn/login" />} />
+          <Route path="*" element={isAuthenticated ? <CorpLearnHome loggedInUser={user} invalidateToken={() => onLogout()}/> : <Navigate to="/corpLearn/login" />} />
         </Routes>
       </Router>
     </>

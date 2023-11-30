@@ -3,6 +3,8 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Image from 'react-bootstrap/Image';
 import { NavDropdown } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 function CorpLearnHeader(props) {
 
@@ -22,7 +24,7 @@ function CorpLearnHeader(props) {
               {props.loggedInUser.role == 1 && <Nav.Link href="/corpLearn/allconcerns">View Concerns</Nav.Link>}
               <Nav.Link href="/corpLearn/announcements">Announcements</Nav.Link>
               <NavDropdown title={
-                  <Image src="../../assets/profile.png" roundedCircle />
+                  <FontAwesomeIcon icon={faUserCircle} /> 
               } id="collapsible-nav-dropdown">
                 <NavDropdown.Item href="/corpLearn/profile">Profile</NavDropdown.Item>
                 <NavDropdown.Divider />

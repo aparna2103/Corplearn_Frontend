@@ -24,7 +24,10 @@ function CorpLearnLogin({ login }) {
 
     await fetch(BACKEND_API_URL + '/corpLearn/login', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        
+      },
       body: JSON.stringify({ email, password }),
     }).then(response => response.json())
     .then(data => {
