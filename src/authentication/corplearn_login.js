@@ -28,10 +28,12 @@ function CorpLearnLogin({ login }) {
       body: JSON.stringify({ email, password }),
     }).then(response => response.json())
     .then(data => {
-      console.log(data)
-      const token = data.access;
-      setCookie('corplearntoken', token, 10); // set token in cookie
-      login(data.user);
+      if(data.access){
+        console.log(data)
+        const token = data.access;
+        setCookie('corplearntoken', token, 10); // set token in cookie
+        login(data.user);
+      }
     });
 
     // if (response.ok) {

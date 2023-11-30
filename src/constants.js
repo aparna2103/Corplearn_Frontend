@@ -1,1 +1,1 @@
-export const BACKEND_API_URL = "http://127.0.0.1:8000"
+export const BACKEND_API_URL = "https://corplearnbackend-63197729138e.herokuapp.com"
