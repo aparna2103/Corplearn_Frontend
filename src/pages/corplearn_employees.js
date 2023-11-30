@@ -156,7 +156,7 @@ function CorpLearnEmployees(props) {
                 <h3>CorpLearn Employees</h3>
                 <CorpLearnokButton style={{marginLeft: "auto"}} btnText="Add Employee" icon={faPlus} onClick={() => setEmployeeModal(!showEmployeeModal)} />
             </div>
-            {employees.map(employee => {
+            {employees.length != 0?(<>{employees.map(employee => {
                 let isEditMode = editableEmployees.includes(employee.email);
                 return (
                     <div className="employee_card">
@@ -198,8 +198,8 @@ function CorpLearnEmployees(props) {
                                 </>
                             ):(
                                 <>
-                                    <CorpLearnokButton classes="employee_edit_ok_button" onClick={() => navigate("/corpLearn/trackprogress", {state: employee})} btnText="Track Progess"/>
-                                    {courses.length && <CorpLearnokButton style={{marginLeft: "auto"}} btnText="Add Course to Employee" icon={faPlus} onClick={() => displayAddCourseModal(employee)} />}
+                                    {courses.length != 0 && <CorpLearnokButton classes="employee_edit_ok_button" onClick={() => navigate("/corpLearn/trackprogress", {state: employee})} btnText="Track Progess"/>}
+                                    {courses.length != 0 && <CorpLearnokButton style={{marginLeft: "auto"}} btnText="Add Course to Employee" icon={faPlus} onClick={() => displayAddCourseModal(employee)} />}
                                     <CorpLearnEdit classes="employee_edit_button" onClick={() => updateEditableEmployees(employee.email, true)}/>
                                     <CorpLearnDelete classes="employee_delete_button" onClick={() => deleteUser(employee.id)}/>
                                 </>
@@ -207,7 +207,7 @@ function CorpLearnEmployees(props) {
                         </div>
                     </div>     
                 )
-            })}
+            })}</>):(<p>No employees found!</p>)}
         </CorpLearnContainer>
         <CorpLearnAddEmployee onHide={() => onHideModal()} 
                         show={showEmployeeModal} 

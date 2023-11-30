@@ -29,9 +29,11 @@ export default function CorpLearnDiscussionForum(props){
             props.invalidateToken();
           }else{
             console.log(data);
-            setCurrentCourse(data[0].code)
-            setCourses(data);
-            getDiscussionForum(data[0].code);
+            if(data.length){
+              setCurrentCourse(data[0].code)
+              setCourses(data);
+              getDiscussionForum(data[0].code);
+            }
           }
         });
     }, []);
@@ -131,7 +133,7 @@ export default function CorpLearnDiscussionForum(props){
             </Form.Select>
             <div style={{display: "flex", alignItems: "center", marginTop: "1rem"}}>
                 <h3>Questions</h3>
-                <CorpLearnokButton style={{marginLeft: "auto"}} btnText="Add Question" icon={faPlus} onClick={() => setShowQuestionModal(true)} />
+                {courses.length != 0 && <CorpLearnokButton style={{marginLeft: "auto"}} btnText="Add Question" icon={faPlus} onClick={() => setShowQuestionModal(true)} />}
             </div>
             {questions.map(question => {
                 return (
@@ -149,6 +151,7 @@ export default function CorpLearnDiscussionForum(props){
                     </div>  
                 )
             })}
+            {courses.length == 0 && <p>No Courses added</p>}
         </CorpLearnContainer>
         <CorpLearnModal data={{"title": currentCourse + " - Add Question"}} 
                         onHide={() => onHideModal()} 

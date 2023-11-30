@@ -5,14 +5,22 @@ import { BACKEND_API_URL } from '../constants'
 import React, { useState } from 'react';
 import { setCookie } from '../utils/utils'
 import CorpLearnContainer from '../ui_utils/corplearn_container';
+import Alert from 'react-bootstrap/Alert';
+import CorpLearnClose from '../ui_utils/closebutton';
 
 function CorpLearnLogin({ login }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [validationAlert, setValidationAlert] = useState(false);
   console.log(BACKEND_API_URL);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if(email == "" || password == ""){
+      setValidationAlert(true);
+      return;
+    }
 
     await fetch(BACKEND_API_URL + '/corpLearn/login', {
       method: 'POST',
@@ -46,6 +54,11 @@ function CorpLearnLogin({ login }) {
 
   return (
     <CorpLearnContainer>
+      {validationAlert && 
+                <Alert className="validationAlert" key="danger" variant="danger" onClose={() => setValidationAlert(false)}>
+                    One or more fields is empty <CorpLearnClose onClick={() => setValidationAlert(false)}/>
+                </Alert>
+            }
         <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>

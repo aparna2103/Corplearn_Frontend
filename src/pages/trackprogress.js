@@ -36,7 +36,7 @@ export default function CorpLearnTrackProgress(props){
                         </div>
                         <div>
                             <p className='employee_name'> 
-                                <b> Current status</b>: {course.status=="Start"?"Yet to start":"In Progress"}&nbsp;
+                                <b> Current status</b>: {course.status=="Start"?"Yet to start":course.status}&nbsp;
                             </p>
                         </div>
                         <div>

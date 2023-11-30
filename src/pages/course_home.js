@@ -32,10 +32,6 @@ export default function CorpLearnCourseHome(props){
         });
     }, [])
 
-    const deleteModule = (module_id) => {
-
-    }
-
     const onHideModal = () => {
         setAddModuleModal(!addModuleModal);
         setValidationAlert(false);
@@ -93,7 +89,7 @@ export default function CorpLearnCourseHome(props){
                         </div>
                         <div className="employee_util_buttons">
                             {/* <CorpLearnEdit classes="employee_edit_button" onClick={() => editModule(module.id, `Module ${idx+1}`)}/> */}
-                            <CorpLearnDelete classes="employee_delete_button" onClick={() => deleteModule(module.id)}/>
+                            {/* <CorpLearnDelete classes="employee_delete_button" onClick={() => deleteModule(module.id)}/> */}
                         </div>
                     </div>     
                 )

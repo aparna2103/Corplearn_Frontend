@@ -24,7 +24,7 @@ function CorpLearnAddCourse(props) {
                 <Form.Control placeholder="Enter code" className="new_course_code_field"/>
             </Form.Group>
             <Form.Group className="mb-3">
-                <Form.Label>Email</Form.Label>
+                <Form.Label>Time to complete(days)</Form.Label>
                 <Form.Control type="number" min={2} placeholder="Enter days to complete" className="new_course_deadline_field"/>
             </Form.Group>
             </Modal.Body>
