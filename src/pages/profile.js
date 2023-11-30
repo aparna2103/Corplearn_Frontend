@@ -9,10 +9,12 @@ import { faSave } from "@fortawesome/free-solid-svg-icons";
 import { Alert } from "react-bootstrap";
 
 export default function CorpLearnEmployeeProfile(props){
+    // State to manage employee details and editing mode
     const [empDetails, setEmpDetails] = useState({});
     const [isEditMode, setEditMode] = useState(false);
     const [validationAlert, setValidationAlert] = useState(false);
 
+    // Function to update employee details
     const editEmployee = (user_id) => {
         let new_name = document.querySelector(`.profile_name`).value;
         let new_email = document.querySelector(`.profile_email`).value;
@@ -32,6 +34,7 @@ export default function CorpLearnEmployeeProfile(props){
         });
     }
 
+    // Fetch employee details from the backend API
     useEffect(() => {
         backendFetchUrl("/corpLearn/users/"+props.loggedInUser.id, {
             method: 'GET',
@@ -46,14 +49,18 @@ export default function CorpLearnEmployeeProfile(props){
         });
     }, [props.loggedInUser.id])
 
+    // JSX component rendering
     return (
         <CorpLearnContainer>
+            {/* Display validation alert if necessary */}
             {validationAlert && 
                 <Alert className="validationAlert" key="danger" variant="danger" onClose={() => setValidationAlert(false)}>
                     One or more fields is empty <CorpLearnClose onClick={() => setValidationAlert(false)}/>
                 </Alert>
             }
             <h3>Employee Profile</h3>
+            
+            {/* Form fields to display and edit employee details */}
             <Form.Group className="mb-3">
                 <Form.Label>Name</Form.Label>
                 {isEditMode?<Form.Control placeholder={empDetails.name} className="profile_name"/>:
@@ -64,6 +71,8 @@ export default function CorpLearnEmployeeProfile(props){
                 {isEditMode?<Form.Control type="email" placeholder={empDetails.email} className="profile_email"/>:
                 <Form.Control placeholder={empDetails.email} className="profile_email" disabled value={empDetails.email}/>}
             </Form.Group>
+            
+            {/* Render edit and save buttons based on edit mode */}
             {!isEditMode && <CorpLearnEdit btnText="Edit Profile" onClick={() => setEditMode(true)} />}
             {isEditMode && 
                 <div className="employee_util_buttons">
@@ -71,7 +80,6 @@ export default function CorpLearnEmployeeProfile(props){
                     <CorpLearnClose classes="employee_edit_cancel_button" btnText="Cancel" onClick={() => setEditMode(false)}/>
                 </div>
             }
-            
         </CorpLearnContainer>
     )
 }

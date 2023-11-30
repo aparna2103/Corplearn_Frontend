@@ -6,11 +6,13 @@ import { useNavigate } from 'react-router-dom';
 import CorpLearnokButton from '../ui_utils/okbutton';
 
 function CorpLearnHome(props) {
+  // States to manage courses and their statuses
   const [courses, setCourses] = useState([]);
   const [currentCourses, setCurrentCourses] = useState([]);
   const [futureCourses, setFutureCourses] = useState([]);
   const navigate = useNavigate();
 
+  // Fetch user-specific courses from the backend API upon component mount or when the user ID changes
   useState(() => {
     backendFetchUrl("/corpLearn/courses/employee-courses/user/" + props.loggedInUser.id, {
       method: 'GET',
@@ -18,7 +20,7 @@ function CorpLearnHome(props) {
     .then(data => {
       if(data.code == "token_not_valid"){
         props.invalidateToken();
-      }else{
+      } else {
         console.log(data);
         setCurrentCourses(data.filter(course => course.status == "InProgress"));
         setFutureCourses(data.filter(course => course.status == "Start"));
@@ -27,6 +29,7 @@ function CorpLearnHome(props) {
     });
   }, [props.loggedInUser.id]);
 
+  // Function to start a course by updating its status to "InProgress"
   const startCourse = (course_id) => {
     backendFetchUrl("/corpLearn/courses/employee-courses/update/" + course_id, {
       method: 'PUT',
@@ -41,16 +44,22 @@ function CorpLearnHome(props) {
     });
   }
 
+  // Function to continue a course by navigating to its details
   const continueCourse = (course) => {
     navigate('/corpLearn/course', {state: course})
   }
 
+  // JSX component rendering
   return (
     <CorpLearnContainer>
+      {/* Welcome message */}
       <div style={{display: "flex", alignItems: "center", marginTop: "1rem"}}>
         <h3>Welcome to Corp Learn - {props.loggedInUser.name}</h3>
-        {props.loggedInUser.role == 2 && <CorpLearnokButton classes="employee_edit_ok_button" onClick={() => navigate("/corpLearn/trackprogress", {state: props.loggedInUser})} btnText="Track Course Progess"/>}
+        {/* 'Track Course Progress' button for admin users */}
+        {props.loggedInUser.role == 2 && <CorpLearnokButton classes="employee_edit_ok_button" onClick={() => navigate("/corpLearn/trackprogress", {state: props.loggedInUser})} btnText="Track Course Progress"/>}
       </div>
+      
+      {/* Display 'Current Courses' section for admin users */}
       {props.loggedInUser.role == 2 && <h3 style={{marginTop: "3rem"}}>Current Courses</h3>}
       {props.loggedInUser.role == 2?(<>{currentCourses.length != 0?(
         <>
@@ -64,6 +73,8 @@ function CorpLearnHome(props) {
           })}
         </>
       ):(<p>No Current courses. Please start a course</p>)}</>):(<></>)}
+      
+      {/* Display 'Courses yet to start' section for admin users */}
       {props.loggedInUser.role == 2 && <h3>Courses yet to start</h3>}
       {props.loggedInUser.role == 2?(<>{futureCourses.length != 0?(
         <>
@@ -80,9 +91,12 @@ function CorpLearnHome(props) {
           </div>
         </>
       ):(<p>You do not have any more courses left to start. Ask admin to assign more</p>)}</>):(<></>)}
+
+      {/* Display quick links for non-admin users */}
       {props.loggedInUser.role == 1 && (
         <>
           <h4>Quick Links</h4>
+          {/* Quick links to different sections */}
           <div className="employee_card">
               <div>
                   <p className='employee_name'> 
@@ -124,4 +138,4 @@ function CorpLearnHome(props) {
   );
 }
 
-export default CorpLearnHome;
+export default CorpLearnHome; // Export the component
